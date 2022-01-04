@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets
 from dialog import Ui_MainWindow
+from flowers import FlowerNetwork
 import sys
 
 #TODO:
@@ -16,6 +17,8 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         #EVENT HANDLING
         #register the clearGraphButton
         self.ui.clearGraphButton.clicked.connect(lambda: self.ui._2dGraphTab.canvas.clearGraph())
+        #* in front unpacks the tuple as arguments
+        self.ui.startTrainingButton.clicked.connect(lambda: FlowerNetwork().runNetwork(*self.ui._2dGraphTab.canvas.getGraphValues()))
     
     def getEpochValue(self):
         return self.ui.epochsBox.value()

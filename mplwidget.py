@@ -65,7 +65,7 @@ class MplCanvas(Canvas):
         self.figure.canvas.draw()
     
     def clearGraph(self):
-        self.getGraphValues()
+        #self.getGraphValues()
         #remove all the points one by one
         for point in self.scatterpoints:
             point.remove()
@@ -78,9 +78,9 @@ class MplCanvas(Canvas):
         self.figure.canvas.draw()
     
     def getGraphValues(self):
-        #print(self.axes.collections[0].get_offsets().data)
-        print(self.inputPoints)
-        print(self.outputValues)
+        #print(self.inputPoints)
+        #print(self.outputValues)
+        return self.inputPoints, self.outputValues
 
 # Matplotlib widget
 class MplWidget(QtWidgets.QWidget):
