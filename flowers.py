@@ -8,7 +8,7 @@ from losses import mse, mse_prime
 from network import train, predict
 
 class FlowerNetwork():
-    def runNetwork(self, inputPoints, outputValues):
+    def runNetwork(self, inputPoints, outputValues, epochs, learning_rate):
         X = np.reshape(inputPoints, (len(inputPoints), 2, 1))
         Y = np.reshape(outputValues, (len(outputValues), 1, 1))
 
@@ -20,7 +20,7 @@ class FlowerNetwork():
         ]
 
         # train
-        train(network, mse, mse_prime, X, Y, epochs=10000, learning_rate=0.1)
+        train(network, mse, mse_prime, X, Y, epochs, learning_rate)
 
         # decision boundary plot
         points = []

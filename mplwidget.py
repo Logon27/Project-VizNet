@@ -65,7 +65,6 @@ class MplCanvas(Canvas):
         self.figure.canvas.draw()
     
     def clearGraph(self):
-        #self.getGraphValues()
         #remove all the points one by one
         for point in self.scatterpoints:
             point.remove()

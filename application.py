@@ -18,7 +18,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         #register the clearGraphButton
         self.ui.clearGraphButton.clicked.connect(lambda: self.ui._2dGraphTab.canvas.clearGraph())
         #* in front unpacks the tuple as arguments
-        self.ui.startTrainingButton.clicked.connect(lambda: FlowerNetwork().runNetwork(*self.ui._2dGraphTab.canvas.getGraphValues()))
+        #Might want to create a FlowerNetwork object here then just pass the function to it. 
+        #So its not anonymous every time and can be saved
+        self.ui.startTrainingButton.clicked.connect(
+            lambda: FlowerNetwork().runNetwork(*self.ui._2dGraphTab.canvas.getGraphValues(), self.ui.epochsBox.value(), self.ui.learningRateBox.value()))
     
     def getEpochValue(self):
         return self.ui.epochsBox.value()
