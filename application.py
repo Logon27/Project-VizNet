@@ -6,6 +6,12 @@ import sys
 #TODO:
 #https://stackoverflow.com/questions/7821518/matplotlib-save-plot-to-numpy-array
 #figure out how to convert the matplotlib scatter plot to a numpy array for the network to intake
+#DONE
+
+#https://stackoverflow.com/questions/33282368/plotting-a-2d-heatmap-with-matplotlib
+#convert to a heatmap
+#Z = np.random.rand(5, 5) 
+#self.axes.pcolormesh(Z, zorder=0)
 
 class ApplicationWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -14,14 +20,16 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        flowerNetwork = FlowerNetwork(self.ui)
         #EVENT HANDLING
         #register the clearGraphButton
         self.ui.clearGraphButton.clicked.connect(lambda: self.ui._2dGraphTab.canvas.clearGraph())
+        self.ui.heatmapToggle.clicked.connect(lambda: flowerNetwork.toggleHeatMap())
         #* in front unpacks the tuple as arguments
         #Might want to create a FlowerNetwork object here then just pass the function to it. 
         #So its not anonymous every time and can be saved
         self.ui.startTrainingButton.clicked.connect(
-            lambda: FlowerNetwork().runNetwork(*self.ui._2dGraphTab.canvas.getGraphValues(), self.ui.epochsBox.value(), self.ui.learningRateBox.value()))
+            lambda: flowerNetwork.runNetwork(self.ui, *self.ui._2dGraphTab.canvas.getGraphValues(), self.ui.epochsBox.value(), self.ui.learningRateBox.value()))
     
     def getEpochValue(self):
         return self.ui.epochsBox.value()
@@ -53,7 +61,7 @@ if __name__ == "__main__":
 #Compile with...
 #pyuic5 dialog.ui > dialog.py
 
-#The run python application2.py
+#The run python application.py
 
 
 

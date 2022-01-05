@@ -1,3 +1,5 @@
+#2D Graph Widget
+
 # Imports
 from PyQt5 import QtWidgets
 from matplotlib.backend_bases import MouseEvent
@@ -8,6 +10,8 @@ import matplotlib
 import numpy as np
 
 import random
+
+from scipy.interpolate import griddata
 
 # Ensure using PyQt5 backend
 matplotlib.use('QT5Agg')
@@ -21,6 +25,8 @@ class MplCanvas(Canvas):
         self.outputValues = []
         #stores the scatter plot points so they can visibly be removed
         self.scatterpoints = []
+        #Heat map graphic
+        self.heatmap = None
         self.fig = Figure()
         self.axes = self.fig.add_subplot(111)
         self.axes.set_xlim(0,10)
@@ -40,6 +46,7 @@ class MplCanvas(Canvas):
             self.inputPoints.append([event.xdata,event.ydata])
             self.outputValues.append([0])
             self.scatterpoints.append(self.axes.scatter(event.xdata, event.ydata, color='red'))
+
         #middle click
         elif event.button == 2:
             for i in range(0,10):
@@ -80,6 +87,26 @@ class MplCanvas(Canvas):
         #print(self.inputPoints)
         #print(self.outputValues)
         return self.inputPoints, self.outputValues
+    
+    def toggleHeatMap(self, points):
+        if self.heatmap:
+            for element in self.heatmap.collections:
+                element.remove()
+            #just so the condition above works
+            self.heatmap = None
+        else:
+            x = points[:, 0]
+            y = points[:, 1]
+            z = points[:, 2]
+            resolution = 50
+            contour_method = 'linear'
+            resolution = str(resolution)+'j'
+            X,Y = np.mgrid[min(x):max(x):complex(resolution),   min(y):max(y):complex(resolution)]
+            points = [[a,b] for a,b in zip(x,y)]
+            Z = griddata(points, z, (X, Y), method=contour_method)
+            self.heatmap = self.axes.contourf(X,Y,Z, vmin=0, vmax=1, cmap=matplotlib.cm.get_cmap('seismic_r'), alpha=0.65, zorder=0)
+
+        self.figure.canvas.draw()
 
 # Matplotlib widget
 class MplWidget(QtWidgets.QWidget):
