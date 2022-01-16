@@ -27,9 +27,17 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
         self.tabWidget.setSizePolicy(sizePolicy)
         self.tabWidget.setObjectName("tabWidget")
-        self.networkDiagramTab = QtWidgets.QWidget()
-        self.networkDiagramTab.setObjectName("networkDiagramTab")
-        self.tabWidget.addTab(self.networkDiagramTab, "")
+        self.networkArchitectureTab = QtWidgets.QWidget()
+        self.networkArchitectureTab.setObjectName("networkArchitectureTab")
+        self.textEdit = QtWidgets.QTextEdit(self.networkArchitectureTab)
+        self.textEdit.setGeometry(QtCore.QRect(0, 0, 591, 521))
+        font = QtGui.QFont()
+        font.setPointSize(20)
+        self.textEdit.setFont(font)
+        self.textEdit.setOverwriteMode(False)
+        self.textEdit.setAcceptRichText(True)
+        self.textEdit.setObjectName("textEdit")
+        self.tabWidget.addTab(self.networkArchitectureTab, "")
         self._2dGraphTab = MplWidget()
         self._2dGraphTab.setObjectName("_2dGraphTab")
         self.tabWidget.addTab(self._2dGraphTab, "")
@@ -136,13 +144,18 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Project VizNet"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.networkDiagramTab), _translate("MainWindow", "Network Diagram"))
+        self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:20pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:10pt;\"><br /></p></body></html>"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.networkArchitectureTab), _translate("MainWindow", "Network Architecture"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self._2dGraphTab), _translate("MainWindow", "2D Graph"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self._3dOutputTab), _translate("MainWindow", "3D Output"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.errorGraphTab), _translate("MainWindow", "Error Graph"))
