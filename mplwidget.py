@@ -87,6 +87,22 @@ class MplCanvas(Canvas):
         #print(self.inputPoints)
         #print(self.outputValues)
         return self.inputPoints, self.outputValues
+
+    def updateHeatMap(self, points):
+        if self.heatmap:
+            for element in self.heatmap.collections:
+                element.remove()
+            x = points[:, 0]
+            y = points[:, 1]
+            z = points[:, 2]
+            resolution = 50
+            contour_method = 'linear'
+            resolution = str(resolution)+'j'
+            X,Y = np.mgrid[min(x):max(x):complex(resolution),   min(y):max(y):complex(resolution)]
+            points = [[a,b] for a,b in zip(x,y)]
+            Z = griddata(points, z, (X, Y), method=contour_method)
+            self.heatmap = self.axes.contourf(X,Y,Z, vmin=0, vmax=1, cmap=matplotlib.cm.get_cmap('seismic_r'), alpha=0.65, zorder=0)
+            self.figure.canvas.draw()
     
     def toggleHeatMap(self, points):
         if self.heatmap:

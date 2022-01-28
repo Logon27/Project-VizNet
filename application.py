@@ -11,6 +11,13 @@ import sys
 #Abandoned the network architecture diagram and added a network designer instead via text
 
 #need to pass the self.ui UI element to all widgets and classes.
+#https://stackoverflow.com/questions/38010391/share-python-objects-between-two-or-more-py-files
+
+#I could just pass self.ui.progressBar into the constructor of the clearGraph function in this class.
+#Then I could clear it in the widget
+
+#https://dawes.wordpress.com/2014/06/27/publication-ready-3d-figures-from-matplotlib/
+#awesome looking 3d plot with 2d projection
 
 class ApplicationWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -28,7 +35,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         #Might want to create a FlowerNetwork object here then just pass the function to it. 
         #So its not anonymous every time and can be saved
         self.ui.startTrainingButton.clicked.connect(
-            lambda: flowerNetwork.runNetwork(self.ui, *self.ui._2dGraphTab.canvas.getGraphValues(), self.ui.epochsBox.value(), self.ui.learningRateBox.value()))
+            lambda: flowerNetwork.runNetwork(*self.ui._2dGraphTab.canvas.getGraphValues(), self.ui.epochsBox.value(), self.ui.learningRateBox.value(), self.ui.errorStopBox.value()))
 
         #setting the default test of the network architecture window
         #the weird indentation is a quirk of python multiline strings

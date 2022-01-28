@@ -4,7 +4,8 @@ def predict(network, input):
         output = layer.forward(output)
     return output
 
-def train(network, loss, loss_prime, x_train, y_train, epochs = 1000, learning_rate = 0.01, verbose = True):
+def train(ui, network, loss, loss_prime, x_train, y_train, epochs = 1000, learning_rate = 0.01, errorStopThreshold = 0, verbose = True):
+    import numpy as np
     for e in range(epochs):
         error = 0
         for x, y in zip(x_train, y_train):
@@ -20,5 +21,12 @@ def train(network, loss, loss_prime, x_train, y_train, epochs = 1000, learning_r
                 grad = layer.backward(grad, learning_rate)
 
         error /= len(x_train)
+
+        ui.progressBar.setValue(((e + 1) * 100) / epochs)
+
         if verbose:
             print(f"{e + 1}/{epochs}, error={error}")
+
+        if error < errorStopThreshold:
+            print("Error below threshold")
+            break

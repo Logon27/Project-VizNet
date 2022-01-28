@@ -17,16 +17,16 @@ class FlowerNetwork():
         self.ui = ui
         self.points = np.array([])
     
-    def runNetwork(self, ui, inputPoints, outputValues, epochs, learning_rate):
+    def runNetwork(self, inputPoints, outputValues, epochs, learning_rate, errorStopThreshold):
         #reset progress bar to zero before training
-        ui.progressBar.setValue(0)
+        self.ui.progressBar.setValue(0)
 
         X = np.reshape(inputPoints, (len(inputPoints), 2, 1))
         Y = np.reshape(outputValues, (len(outputValues), 1, 1))
 
         #unsafe alternative
         #network = eval(ui.textEdit.toPlainText())
-        network = self.parseInput(ui.textEdit.toPlainText())
+        network = self.parseInput(self.ui.textEdit.toPlainText())
         # network = [
         #     Dense(2, 3),
         #     Tanh(),
@@ -42,7 +42,7 @@ class FlowerNetwork():
         # ]
 
         # train
-        train(network, mse, mse_prime, X, Y, epochs, learning_rate)
+        train(self.ui, network, mse, mse_prime, X, Y, epochs, learning_rate, errorStopThreshold)
 
         # decision boundary plot
         points = []
@@ -54,10 +54,13 @@ class FlowerNetwork():
         self.points = np.array(points)
 
         #ui._2dGraphTab.canvas.
-        ui._3dOutputTab.canvas.updateGraph(self.points)
+        self.ui._3dOutputTab.canvas.updateGraph(self.points)
+
+        #update the heatmap if it is on
+        self.ui._2dGraphTab.canvas.updateHeatMap(self.points)
 
         #set progress bar to max after training
-        ui.progressBar.setValue(100)
+        self.ui.progressBar.setValue(100)
     
     def toggleHeatMap(self):
         if np.size(self.points):

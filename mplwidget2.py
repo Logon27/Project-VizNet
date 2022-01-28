@@ -15,6 +15,8 @@ class MplCanvas2(Canvas):
         self.scatter = None
         self.fig = Figure()
         self.ax = self.fig.add_subplot(111, projection="3d")
+        self.fig.patch.set_facecolor('0.4')
+        self.ax.patch.set_facecolor('0.4')
         Canvas.__init__(self, self.fig)
         Canvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         Canvas.updateGeometry(self)
