@@ -42,7 +42,7 @@ class FlowerNetwork():
         # ]
 
         # train
-        train(self.ui, network, mse, mse_prime, X, Y, epochs, learning_rate, errorStopThreshold)
+        errorPoints = train(self.ui, network, mse, mse_prime, X, Y, epochs, learning_rate, errorStopThreshold)
 
         # decision boundary plot
         points = []
@@ -58,6 +58,9 @@ class FlowerNetwork():
 
         #update the heatmap if it is on
         self.ui._2dGraphTab.canvas.updateHeatMap(self.points)
+
+        #update the error graph after training finishes
+        self.ui.errorGraphTab.canvas.updateErrorGraph(errorPoints)
 
         #set progress bar to max after training
         self.ui.progressBar.setValue(100)

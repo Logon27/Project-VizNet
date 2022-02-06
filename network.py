@@ -1,3 +1,5 @@
+import numpy as np
+
 def predict(network, input):
     output = input
     for layer in network:
@@ -5,7 +7,7 @@ def predict(network, input):
     return output
 
 def train(ui, network, loss, loss_prime, x_train, y_train, epochs = 1000, learning_rate = 0.01, errorStopThreshold = 0, verbose = True):
-    import numpy as np
+    errorPoints = []
     for e in range(epochs):
         error = 0
         for x, y in zip(x_train, y_train):
@@ -22,6 +24,9 @@ def train(ui, network, loss, loss_prime, x_train, y_train, epochs = 1000, learni
 
         error /= len(x_train)
 
+        #get the error after each epoch
+        errorPoints.append([e, error.item()])
+
         ui.progressBar.setValue(((e + 1) * 100) / epochs)
 
         if verbose:
@@ -30,3 +35,7 @@ def train(ui, network, loss, loss_prime, x_train, y_train, epochs = 1000, learni
         if error < errorStopThreshold:
             print("Error below threshold")
             break
+
+    #convert the list of errorPoints back to a numpy array for easy processing
+    errorPoints = np.array(errorPoints)
+    return errorPoints

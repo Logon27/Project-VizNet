@@ -44,7 +44,7 @@ class Ui_MainWindow(object):
         self._3dOutputTab = MplWidget2()
         self._3dOutputTab.setObjectName("_3dOutputTab")
         self.tabWidget.addTab(self._3dOutputTab, "")
-        self.errorGraphTab = QtWidgets.QWidget()
+        self.errorGraphTab = MplWidget3()
         self.errorGraphTab.setObjectName("errorGraphTab")
         self.tabWidget.addTab(self.errorGraphTab, "")
         self.predictionTab = QtWidgets.QWidget()
@@ -156,7 +156,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -184,3 +184,4 @@ class Ui_MainWindow(object):
         self.errorStopBox.setPrefix(_translate("MainWindow", "Error Threshold:  "))
 from mplwidget import MplWidget
 from mplwidget2 import MplWidget2
+from mplwidget3 import MplWidget3

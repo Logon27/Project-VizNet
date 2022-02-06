@@ -27,7 +27,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="networkArchitectureTab">
        <attribute name="title">
@@ -72,7 +72,7 @@ p, li { white-space: pre-wrap; }
         <string>3D Output</string>
        </attribute>
       </widget>
-      <widget class="QWidget" name="errorGraphTab">
+      <widget class="MplWidget3" name="errorGraphTab">
        <attribute name="title">
         <string>Error Graph</string>
        </attribute>
@@ -309,6 +309,12 @@ p, li { white-space: pre-wrap; }
    <class>MplWidget2</class>
    <extends>QWidget</extends>
    <header>mplwidget2</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MplWidget3</class>
+   <extends>QWidget</extends>
+   <header>mplwidget3</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
