@@ -4,6 +4,14 @@ def predict(network, input):
     output = input
     for layer in network:
         output = layer.forward(output)
+
+    #its possible the network can predict above 1 or below zero.
+    #this just prevents displaying below the range so the graph looks more pretty
+    #and makes sense with the color gradient
+    if output[0,0] > 1:
+        output[0,0] = 1
+    if output[0,0] < 0:
+        output[0,0] = 0
     return output
 
 def train(ui, network, loss, loss_prime, x_train, y_train, epochs = 1000, learning_rate = 0.01, errorStopThreshold = 0, verbose = True):

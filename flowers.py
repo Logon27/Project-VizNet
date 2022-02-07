@@ -18,6 +18,11 @@ class FlowerNetwork():
         self.points = np.array([])
     
     def runNetwork(self, inputPoints, outputValues, epochs, learning_rate, errorStopThreshold):
+        #Don't run the network if there are no input points
+        if not inputPoints:
+            print("No input points")
+            return
+
         #reset progress bar to zero before training
         self.ui.progressBar.setValue(0)
 

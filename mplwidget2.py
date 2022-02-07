@@ -15,6 +15,9 @@ class MplCanvas2(Canvas):
         self.scatter = None
         self.fig = Figure()
         self.ax = self.fig.add_subplot(111, projection="3d")
+        self.ax.set_xlabel('Width Of Flower Petal')
+        self.ax.set_ylabel('Length Of Flower Petal')
+        self.ax.set_zlabel('Network Prediction')
         self.fig.patch.set_facecolor('0.4')
         self.ax.patch.set_facecolor('0.4')
         Canvas.__init__(self, self.fig)

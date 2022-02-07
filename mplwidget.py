@@ -29,6 +29,8 @@ class MplCanvas(Canvas):
         self.heatmap = None
         self.fig = Figure()
         self.axes = self.fig.add_subplot(111)
+        self.axes.set_xlabel('Width Of Flower Petal')
+        self.axes.set_ylabel('Length Of Flower Petal')
         self.axes.set_xlim(0,10)
         self.axes.set_ylim(0,10)
         self.fig.canvas.mpl_connect('button_press_event', self.on_mouse_click)
@@ -72,6 +74,13 @@ class MplCanvas(Canvas):
         self.figure.canvas.draw()
     
     def clearGraph(self):
+        #Clear the heatmap
+        if self.heatmap:
+            for element in self.heatmap.collections:
+                element.remove()
+            #just so the condition above works
+            self.heatmap = None
+
         #remove all the points one by one
         for point in self.scatterpoints:
             point.remove()
@@ -92,6 +101,9 @@ class MplCanvas(Canvas):
         if self.heatmap:
             for element in self.heatmap.collections:
                 element.remove()
+            #just so the condition above works
+            self.heatmap = None
+
             x = points[:, 0]
             y = points[:, 1]
             z = points[:, 2]
