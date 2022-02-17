@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 from dense import Dense
-from activations import Tanh
+from activations import Sigmoid, Tanh, Relu, LeakyRelu
 from losses import mse, mse_prime
 from network import train, predict
 
@@ -74,21 +74,31 @@ class FlowerNetwork():
         if np.size(self.points):
             self.ui._2dGraphTab.canvas.toggleHeatMap(self.points)
 
+    #Parses the text editor architecture into actual Dense / Activation Layers
+    #Activation functions are imported by name
     def parseInput(self, inputText):
         network = []
         lineNum = 0
         for line in inputText.splitlines():
             line.replace(" ", "")
             parsedLine = re.split('\(|,|\)', line)
-            if parsedLine[0].casefold() == 'Dense'.casefold():
+            parsedKeyword = parsedLine[0].casefold()
+            if parsedKeyword == 'Dense'.casefold():
                 try:
                     layerInputSize = int(parsedLine[1])
                     layerOutputSize = int(parsedLine[2])
                     network.append(Dense(layerInputSize, layerOutputSize))
                 except ValueError:
                     print('Error Parsing Architecture at line ' + lineNum)
-            elif parsedLine[0].casefold() == 'Tanh'.casefold():
+            elif parsedKeyword == 'Tanh'.casefold():
                 network.append(Tanh())
+            elif parsedKeyword == 'Sigmoid'.casefold() or parsedKeyword == 'Sig'.casefold():
+                network.append(Sigmoid())
+            elif parsedKeyword == 'Relu'.casefold():
+                network.append(Relu())
+            elif parsedKeyword == 'LeakyRelu'.casefold():
+                network.append(LeakyRelu())
+
             lineNum+=1
             #print(parsedLine)
         return network

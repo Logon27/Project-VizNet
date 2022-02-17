@@ -3,6 +3,23 @@ from dialog import Ui_MainWindow
 from flowers import FlowerNetwork
 import sys
 
+#Make changes in QT Designer
+
+#add a widget placeholder to the tab in qt designer
+#right click and promote
+#MplWidget promoted class name. And mplwidget header file
+
+#inside the mplwidget python file is where you will actually make matplotlib changes.
+
+#mplwidget
+
+#Compile with...
+#pyuic5 dialog.ui > dialog.py
+
+#The run... python application.py
+
+###===============================###
+
 #TODO:
 
 #3d gradient descent plot

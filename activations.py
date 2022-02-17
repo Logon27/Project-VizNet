@@ -23,6 +23,30 @@ class Sigmoid(Activation):
 
         super().__init__(sigmoid, sigmoid_prime)
 
+class Relu(Activation):
+    def __init__(self):
+        def relu(x):
+            return np.maximum(x, 0)
+
+        def relu_prime(x):
+            return np.greater(x, 0).astype(int)
+
+        super().__init__(relu, relu_prime)
+
+class LeakyRelu(Activation):
+    def __init__(self):
+        def leaky_relu(x):
+            alpha = 0.01
+            return np.maximum(alpha * x, x)
+
+        def leaky_relu_prime(x):
+            alpha = 0.01
+            dx = np.ones_like(x)
+            dx[x < 0] = alpha
+            return dx
+
+        super().__init__(leaky_relu, leaky_relu_prime)  
+
 class Softmax(Layer):
     def forward(self, input):
         tmp = np.exp(input)
