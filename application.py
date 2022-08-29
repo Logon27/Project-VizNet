@@ -3,6 +3,16 @@ from dialog import Ui_MainWindow
 from flowers import FlowerNetwork
 import sys
 
+#Start venv
+
+#cd into Workspace/TIC Neural Network/
+
+#.\venvNeuralNetwork\Scripts\activate.bat
+
+#stop exit venv...
+#deactivate
+
+
 #Make changes in QT Designer
 
 #add a widget placeholder to the tab in qt designer
@@ -12,6 +22,8 @@ import sys
 #inside the mplwidget python file is where you will actually make matplotlib changes.
 
 #mplwidget
+
+
 
 #Compile with...
 #pyuic5 dialog.ui > dialog.py

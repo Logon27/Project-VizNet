@@ -62,17 +62,17 @@ p, li { white-space: pre-wrap; }
         </property>
        </widget>
       </widget>
-      <widget class="MplWidget" name="_2dGraphTab">
+      <widget class="Widget2dGraph" name="_2dGraphTab">
        <attribute name="title">
         <string>2D Graph</string>
        </attribute>
       </widget>
-      <widget class="MplWidget2" name="_3dOutputTab">
+      <widget class="Widget3dGraph" name="_3dOutputTab">
        <attribute name="title">
         <string>3D Output</string>
        </attribute>
       </widget>
-      <widget class="MplWidget3" name="errorGraphTab">
+      <widget class="Widget2dErrorGraph" name="errorGraphTab">
        <attribute name="title">
         <string>Error Graph</string>
        </attribute>
@@ -161,7 +161,7 @@ p, li { white-space: pre-wrap; }
           <number>1000</number>
          </property>
          <property name="value">
-          <number>1000</number>
+          <number>3000</number>
          </property>
         </widget>
        </item>
@@ -234,7 +234,7 @@ p, li { white-space: pre-wrap; }
           <double>0.100000000000000</double>
          </property>
          <property name="value">
-          <double>0.100000000000000</double>
+          <double>0.010000000000000</double>
          </property>
         </widget>
        </item>
@@ -274,10 +274,10 @@ p, li { white-space: pre-wrap; }
           <number>4</number>
          </property>
          <property name="singleStep">
-          <double>0.050000000000000</double>
+          <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>0.010000000000000</double>
+          <double>0.001000000000000</double>
          </property>
         </widget>
        </item>
@@ -300,21 +300,21 @@ p, li { white-space: pre-wrap; }
  </widget>
  <customwidgets>
   <customwidget>
-   <class>MplWidget</class>
+   <class>Widget2dGraph</class>
    <extends>QWidget</extends>
-   <header>mplwidget</header>
+   <header>widget_2dgraph</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MplWidget2</class>
+   <class>Widget3dGraph</class>
    <extends>QWidget</extends>
-   <header>mplwidget2</header>
+   <header>widget_3dgraph</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>MplWidget3</class>
+   <class>Widget2dErrorGraph</class>
    <extends>QWidget</extends>
-   <header>mplwidget3</header>
+   <header>widget_2derrorgraph</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

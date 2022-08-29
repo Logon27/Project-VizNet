@@ -17,7 +17,7 @@ from scipy.interpolate import griddata
 matplotlib.use('QT5Agg')
 
 # Matplotlib canvas class to create figure
-class MplCanvas(Canvas):
+class MplCanvas2dGraph(Canvas):
     def __init__(self):
         #stores the x, y, output values for the neural network
         self.inputPoints = []
@@ -137,10 +137,10 @@ class MplCanvas(Canvas):
         self.figure.canvas.draw()
 
 # Matplotlib widget
-class MplWidget(QtWidgets.QWidget):
+class Widget2dGraph(QtWidgets.QWidget):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)   # Inherit from QWidget
-        self.canvas = MplCanvas()                  # Create canvas object
+        self.canvas = MplCanvas2dGraph()                  # Create canvas object
         self.vbl = QtWidgets.QVBoxLayout()         # Set box for plotting
         self.vbl.addWidget(self.canvas)
         self.setLayout(self.vbl)

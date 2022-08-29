@@ -38,13 +38,13 @@ class Ui_MainWindow(object):
         self.textEdit.setAcceptRichText(True)
         self.textEdit.setObjectName("textEdit")
         self.tabWidget.addTab(self.networkArchitectureTab, "")
-        self._2dGraphTab = MplWidget()
+        self._2dGraphTab = Widget2dGraph()
         self._2dGraphTab.setObjectName("_2dGraphTab")
         self.tabWidget.addTab(self._2dGraphTab, "")
-        self._3dOutputTab = MplWidget2()
+        self._3dOutputTab = Widget3dGraph()
         self._3dOutputTab.setObjectName("_3dOutputTab")
         self.tabWidget.addTab(self._3dOutputTab, "")
-        self.errorGraphTab = MplWidget3()
+        self.errorGraphTab = Widget2dErrorGraph()
         self.errorGraphTab.setObjectName("errorGraphTab")
         self.tabWidget.addTab(self.errorGraphTab, "")
         self.predictionTab = QtWidgets.QWidget()
@@ -92,7 +92,7 @@ class Ui_MainWindow(object):
         self.epochsBox.setAlignment(QtCore.Qt.AlignCenter)
         self.epochsBox.setMaximum(10000)
         self.epochsBox.setSingleStep(1000)
-        self.epochsBox.setProperty("value", 1000)
+        self.epochsBox.setProperty("value", 3000)
         self.epochsBox.setObjectName("epochsBox")
         self.gridLayout.addWidget(self.epochsBox, 2, 0, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -122,7 +122,7 @@ class Ui_MainWindow(object):
         self.learningRateBox.setAlignment(QtCore.Qt.AlignCenter)
         self.learningRateBox.setDecimals(3)
         self.learningRateBox.setSingleStep(0.1)
-        self.learningRateBox.setProperty("value", 0.1)
+        self.learningRateBox.setProperty("value", 0.01)
         self.learningRateBox.setObjectName("learningRateBox")
         self.gridLayout.addWidget(self.learningRateBox, 3, 0, 1, 1)
         self.progressBar = QtWidgets.QProgressBar(self.groupBox)
@@ -141,8 +141,8 @@ class Ui_MainWindow(object):
         self.errorStopBox.setFont(font)
         self.errorStopBox.setAlignment(QtCore.Qt.AlignCenter)
         self.errorStopBox.setDecimals(4)
-        self.errorStopBox.setSingleStep(0.05)
-        self.errorStopBox.setProperty("value", 0.01)
+        self.errorStopBox.setSingleStep(0.01)
+        self.errorStopBox.setProperty("value", 0.001)
         self.errorStopBox.setObjectName("errorStopBox")
         self.gridLayout.addWidget(self.errorStopBox, 4, 0, 1, 1)
         self.horizontalLayout.addWidget(self.groupBox)
@@ -182,6 +182,6 @@ class Ui_MainWindow(object):
         self.learningRateBox.setPrefix(_translate("MainWindow", "Learning Rate:  "))
         self.startTrainingButton.setText(_translate("MainWindow", "Start Training"))
         self.errorStopBox.setPrefix(_translate("MainWindow", "Error Threshold:  "))
-from mplwidget import MplWidget
-from mplwidget2 import MplWidget2
-from mplwidget3 import MplWidget3
+from widget_2derrorgraph import Widget2dErrorGraph
+from widget_2dgraph import Widget2dGraph
+from widget_3dgraph import Widget3dGraph

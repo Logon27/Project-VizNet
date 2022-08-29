@@ -1,3 +1,5 @@
+from re import L
+import re
 import numpy as np
 from layer import Layer
 from activation import Activation

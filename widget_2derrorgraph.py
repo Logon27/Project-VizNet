@@ -1,4 +1,4 @@
-#3D Graph Widget
+#2D Error Widget
 
 # Imports
 from PyQt5 import QtWidgets
@@ -10,33 +10,31 @@ import matplotlib
 matplotlib.use('QT5Agg')
 
 # Matplotlib canvas class to create figure
-class MplCanvas2(Canvas):
+class MplCanvas2dErrorGraph(Canvas):
     def __init__(self):
-        self.scatter = None
         self.fig = Figure()
-        self.ax = self.fig.add_subplot(111, projection="3d")
-        self.ax.set_xlabel('Width Of Flower Petal')
-        self.ax.set_ylabel('Length Of Flower Petal')
-        self.ax.set_zlabel('Network Prediction')
-        self.fig.patch.set_facecolor('0.4')
-        self.ax.patch.set_facecolor('0.4')
+        self.ax = self.fig.add_subplot(111)
+        self.ax.set_xlabel('epochs')
+        self.ax.set_ylabel('error')
         Canvas.__init__(self, self.fig)
         Canvas.setSizePolicy(self, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         Canvas.updateGeometry(self)
 
-    def updateGraph(self, points):
+    def updateErrorGraph(self, errorPoints):
         #remove the old scatter plot if run twice
-        if self.scatter:
-            self.scatter.remove()
-        self.scatter = self.ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=points[:, 2], cmap=matplotlib.cm.get_cmap('seismic_r'))
+        if self.ax:
+            self.ax.cla()
+        self.ax.plot(errorPoints[:, 0], errorPoints[:, 1], linestyle='solid', linewidth=1, color='blue')
+        self.ax.set_xlabel('epochs')
+        self.ax.set_ylabel('error')
         self.figure.canvas.draw()
 
 
 # Matplotlib widget
-class MplWidget2(QtWidgets.QWidget):
+class Widget2dErrorGraph(QtWidgets.QWidget):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)   # Inherit from QWidget
-        self.canvas = MplCanvas2()                 # Create canvas object
+        self.canvas = MplCanvas2dErrorGraph()                 # Create canvas object
         self.vbl = QtWidgets.QVBoxLayout()         # Set box for plotting
         self.vbl.addWidget(self.canvas)
         self.setLayout(self.vbl)

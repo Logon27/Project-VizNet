@@ -7,7 +7,7 @@ from activations import Sigmoid, Tanh, Relu, LeakyRelu
 from losses import mse, mse_prime
 from network import train, predict
 
-from mplwidget2 import MplCanvas2
+from widget_3dgraph import Widget3dGraph
 
 import re
 
