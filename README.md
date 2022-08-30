@@ -49,5 +49,6 @@ The dist and build folders are both build files from pyinstaller. As is the appl
 https://pyinstaller.org/en/stable/usage.html  
 
 ## TODO
-"Select Architecture" and "Select Pretrained Network" buttons removed. To be re-added and implemented in future.
-"Pause Training" and "Stop Training" buttons removed. To be re-added and implemented in future.
+- "Select Architecture" and "Select Pretrained Network" buttons removed. To be re-added and implemented in future.
+- Need to make the neural network run on a separate thread to not freeze the GUI.
+- "Pause Training" and "Stop Training" buttons removed. To be re-added and implemented in future.
