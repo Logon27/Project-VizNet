@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets
 from dialog import Ui_MainWindow
-from flowers import FlowerNetwork
+from flower_network import FlowerNetwork
 import sys
 
 #Start venv
