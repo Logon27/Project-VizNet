@@ -32,6 +32,9 @@ Then run the program...
 python application.py
 ```
 
+## Known Limitations
+- You cannot interact with the program window while the network is training. The program is single threaded and uses your cpu to train the network.
+
 ## Matplotlib Widgets
 Promoted classes are used to add the matplotlib widgets.  
 The promoted class name e.g. "Widget2dErrorGraph" specifies the widget class in the header file e.g. "widget_2derrorgraph". These names must match within the python project so that they can be linked to the UI. The associated "Canvas" class instead the header file can be named whatever you want.
@@ -44,10 +47,6 @@ pyinstaller -F application.py
 Generates a single Windows executable in the dist folder.
 The dist and build folders are both build files from pyinstaller. As is the application.spec file.  
 https://pyinstaller.org/en/stable/usage.html  
-
-## Known Limitations
-- You cannot interact with the program window while the network is training. The program is single threaded and uses your cpu to train the network.
-
 
 ## TODO
 "Select Architecture" and "Select Pretrained Network" buttons removed. To be re-added and implemented in future.
