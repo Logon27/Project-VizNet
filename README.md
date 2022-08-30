@@ -17,7 +17,7 @@ Project Viznet is a neural network visualization program. It helps beginners vis
 **NOTE:** The first Dense layer must have 2 inputs. And the final Dense layer must have 1 output. The number of outputs of the previous Dense layer must match the number of inputs in the subsequent layer
 
 ## Running The Program Via Exe
-I have compiled a Windows executable for Project Viznet. You should just be able to download the executable called ```ProjectViznet-X.X.X.exe``` from the ```dist``` folder and run it locally. It will open a console window along with the visualization program itself. This console will give you epoch and error information when the network is training.
+I have compiled a Windows executable for Project Viznet. You should just be able to download the executable called ```ProjectViznet-X.X.X.exe``` from the ```dist``` folder and run it locally. It will open a console window along with the visualization program itself. This console will give you epoch and error information when the network is training. Windows may give you a warning screen when trying to run the program. This is just because I didn't purchase a publisher certificate to distribute the executable.
 
 ## Compiling And Running From Source
 Use QT designer to modify the dialog.ui file.  
