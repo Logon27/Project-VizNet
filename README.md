@@ -7,6 +7,8 @@ Project Viznet is a neural network visualization program. It helps beginners vis
 
 [![Project Viznet Demo Link](https://img.youtube.com/vi/GffIyL9l3gc/0.jpg)](https://www.youtube.com/watch?v=GffIyL9l3gc)
 
+Base network implementation is a fork from https://github.com/TheIndependentCode/ that has been modified.
+
 ## Supported Neural Layers
 - Dense(numInputNeurons, numOutputNeurons)
 - Tanh()
