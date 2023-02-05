@@ -1,13 +1,11 @@
 # Project Viznet
 
 ## About The Project
-Project Viznet is a neural network visualization program. It helps beginners visualize how a neural network works in 2d and 3d space. As well as provides an editor to modify the neural network architecture.
-
-**WARNING:** This project currently has a decent amount of spaghetti code. But the program in its current working state I find to be valuable educationally. So I am releasing it before refactoring a lot of the code.
+Project Viznet is a neural network visualization program. It helps beginners visualize how a neural network works in 2d and 3d space. As well as provides an editor to modify the neural network architecture. The project now utilizes my own neural network library called [AeroNet](https://github.com/Logon27/AeroNet). It only utilizes a subnet of the library's functionality however to allow for a network architecture editor.
 
 [![Project Viznet Demo Link](https://img.youtube.com/vi/GffIyL9l3gc/0.jpg)](https://www.youtube.com/watch?v=GffIyL9l3gc)
 
-Base network implementation is a fork from https://github.com/TheIndependentCode/ that has been largely modified to suit the flower classification problem and visuals.
+**WARNING:** This project was not programmed with the intention of external contribution. I prioritized speed of a working solution over readability.
 
 ## Supported Neural Layers
 - Dense(numInputNeurons, numOutputNeurons)
@@ -22,6 +20,15 @@ Base network implementation is a fork from https://github.com/TheIndependentCode
 I have compiled a Windows executable for Project Viznet. You should just be able to download the executable called ```ProjectViznet-X.X.X.exe``` from the ```dist``` folder and run it locally. It will open a console window along with the visualization program itself. This console will give you epoch and error information when the network is training. Windows may give you a warning screen when trying to run the program. This is just because I didn't purchase a publisher certificate to distribute the executable.
 
 ## Compiling And Running From Source
+
+### Creating A Virtual Environment
+```
+python -m venv venvProjectViznet
+venvProjectViznet/scripts/activate.bat
+pip install -r requirements.txt
+```
+
+### Compiling The QTDesigner UI File
 Use QT designer to modify the dialog.ui file.  
 Save the dialog.ui file.  
 Compile the dialog.ui file to python with...   

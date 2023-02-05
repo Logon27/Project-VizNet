@@ -19,13 +19,13 @@ matplotlib.use('QT5Agg')
 # Matplotlib canvas class to create figure
 class MplCanvas2dGraph(Canvas):
     def __init__(self):
-        #stores the x, y, output values for the neural network
+        # Stores the x, y, output values for the neural network
         self.inputPoints = []
-        #red = 0, blue = 1 for the outputs
+        # red = 0, blue = 1 for the outputs
         self.outputValues = []
-        #stores the scatter plot points so they can visibly be removed
+        # Stores the scatter plot points so they can visibly be removed
         self.scatterpoints = []
-        #Heat map graphic
+        # Heat map graphic
         self.heatmap = None
         self.fig = Figure()
         self.axes = self.fig.add_subplot(111)
@@ -43,53 +43,53 @@ class MplCanvas2dGraph(Canvas):
     #    print('%s click: button=%d, x=%d, y=%d, xdata=%f, ydata=%f' %('double' if event.dblclick else 'single', event.button, event.x, event.y, event.xdata, event.ydata))
         
     def on_mouse_click(self, event):
-        #left click (red, 0)
+        # left click (red, 0)
         if event.button == 1:
             self.inputPoints.append([event.xdata,event.ydata])
             self.outputValues.append([0])
             self.scatterpoints.append(self.axes.scatter(event.xdata, event.ydata, color='red'))
 
-        #middle click
+        # middle click
         elif event.button == 2:
             for i in range(0,10):
-                #generate random x, y values
+                # Generate random x, y values
                 x = random.uniform(0, 10)
                 y = random.uniform(0, 10)
                 self.inputPoints.append([x,y])
                 self.outputValues.append([0])
                 self.scatterpoints.append(self.axes.scatter(x, y, c='red'))
 
-                #generate second set of random x, y values
+                # Generate second set of random x, y values
                 x = random.uniform(0, 10)
                 y = random.uniform(0, 10)
                 self.inputPoints.append([x,y])
                 self.outputValues.append([1])
                 self.scatterpoints.append(self.axes.scatter(x, y, c='blue'))
-        #right click (blue, 1)
+        # Right click (blue, 1)
         elif event.button == 3:
             self.inputPoints.append([event.xdata,event.ydata])
             self.outputValues.append([1])
             self.scatterpoints.append(self.axes.scatter(event.xdata, event.ydata, color='blue'))
-        #draw the image. must be redrawn with every change. it does not happen automatically
+        # Draw the image. must be redrawn with every change. it does not happen automatically
         self.figure.canvas.draw()
     
     def clearGraph(self):
-        #Clear the heatmap
+        # Clear the heatmap
         if self.heatmap:
             for element in self.heatmap.collections:
                 element.remove()
-            #just so the condition above works
+            # Just so the boolean conditional above works
             self.heatmap = None
 
-        #remove all the points one by one
+        # Remove all the points one by one
         for point in self.scatterpoints:
             point.remove()
-        #clear the input/output lists
+        # Clear the input/output lists
         self.inputPoints.clear()
         self.outputValues.clear()
-        #clear the point list
+        # Clear the point list
         self.scatterpoints.clear()
-        #redraw the image.
+        # Redraw the image.
         self.figure.canvas.draw()
     
     def getGraphValues(self):
@@ -101,7 +101,7 @@ class MplCanvas2dGraph(Canvas):
         if self.heatmap:
             for element in self.heatmap.collections:
                 element.remove()
-            #just so the condition above works
+            # Just so the boolean conditional above works
             self.heatmap = None
 
             x = points[:, 0]
@@ -120,7 +120,7 @@ class MplCanvas2dGraph(Canvas):
         if self.heatmap:
             for element in self.heatmap.collections:
                 element.remove()
-            #just so the condition above works
+            # Just so the boolean conditional above works
             self.heatmap = None
         else:
             x = points[:, 0]
@@ -140,7 +140,7 @@ class MplCanvas2dGraph(Canvas):
 class Widget2dGraph(QtWidgets.QWidget):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)   # Inherit from QWidget
-        self.canvas = MplCanvas2dGraph()                  # Create canvas object
+        self.canvas = MplCanvas2dGraph()           # Create canvas object
         self.vbl = QtWidgets.QVBoxLayout()         # Set box for plotting
         self.vbl.addWidget(self.canvas)
         self.setLayout(self.vbl)

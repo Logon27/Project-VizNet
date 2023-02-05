@@ -1,5 +1,6 @@
-numpy==1.22.0
-matplotlib==3.5.1
-tensorflow==2.7.0
-matplotlib==3.5.1
-scipy==1.7.1
+aeronet-learn
+tensorflow
+matplotlib
+PyQT5
+# For compiling the dialog.ui file to dialog.py
+# pyqt5-tools

@@ -55,32 +55,32 @@ class ApplicationWindow(QtWidgets.QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
-        flowerNetwork = FlowerNetwork(self.ui)
-        #EVENT HANDLING
-        #register the clearGraphButton
-        self.ui.clearGraphButton.clicked.connect(lambda: self.ui._2dGraphTab.canvas.clearGraph())
-        self.ui.heatmapToggle.clicked.connect(lambda: flowerNetwork.toggleHeatMap())
-        #* in front unpacks the tuple as arguments
-        #Might want to create a FlowerNetwork object here then just pass the function to it. 
-        #So its not anonymous every time and can be saved
-        self.ui.startTrainingButton.clicked.connect(
-            lambda: flowerNetwork.runNetwork(*self.ui._2dGraphTab.canvas.getGraphValues(), self.ui.epochsBox.value(), self.ui.learningRateBox.value(), self.ui.errorStopBox.value()))
+        flower_network = FlowerNetwork(self.ui)
+        # EVENT HANDLING
+        # Register the clear_graph_button
+        self.ui.clear_graph_button.clicked.connect(lambda: self.ui._2dGraphTab.canvas.clearGraph())
+        self.ui.heatmap_toggle.clicked.connect(lambda: flower_network.toggleHeatMap())
+        # * in front unpacks the tuple as arguments
+        # Might want to create a FlowerNetwork object here then just pass the function to it. 
+        # So its not anonymous every time and can be saved
+        self.ui.start_training_button.clicked.connect(
+            lambda: flower_network.runNetwork(*self.ui._2dGraphTab.canvas.getGraphValues(), self.ui.epochs_box.value(), self.ui.learning_rate_box.value(), self.ui.error_stop_box.value()))
 
-        #setting the default test of the network architecture window
-        #the weird indentation is a quirk of python multiline strings
-        self.ui.textEdit.setPlainText(
-"""Dense(2, 10)
+        # Setting the default test of the network architecture window
+        # The weird indentation is a quirk of python multiline strings
+        self.ui.text_editor.setPlainText(
+"""Dense(2, 20)
 Tanh()
-Dense(10, 5)
+Dense(20, 10)
 Tanh()
-Dense(5, 1)
+Dense(10, 1)
 Tanh()""")
     
     def getEpochValue(self):
-        return self.ui.epochsBox.value()
+        return self.ui.epochs_box.value()
 
     def getLearningRateValue(self):
-        return self.ui.learningRateBox.value()
+        return self.ui.learning_rate_box.value()
 
 
 def main():

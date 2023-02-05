@@ -33,7 +33,7 @@
        <attribute name="title">
         <string>Network Architecture</string>
        </attribute>
-       <widget class="QTextEdit" name="textEdit">
+       <widget class="QTextEdit" name="text_editor">
         <property name="geometry">
          <rect>
           <x>0</x>
@@ -95,7 +95,7 @@ p, li { white-space: pre-wrap; }
       </property>
       <layout class="QGridLayout" name="gridLayout">
        <item row="3" column="0">
-        <widget class="QPushButton" name="startTrainingButton">
+        <widget class="QPushButton" name="start_training_button">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
@@ -107,14 +107,14 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item row="6" column="0">
-        <widget class="QProgressBar" name="progressBar">
+        <widget class="QProgressBar" name="progress_bar">
          <property name="value">
           <number>0</number>
          </property>
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QDoubleSpinBox" name="errorStopBox">
+        <widget class="QDoubleSpinBox" name="error_stop_box">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
@@ -133,12 +133,12 @@ p, li { white-space: pre-wrap; }
           <double>0.010000000000000</double>
          </property>
          <property name="value">
-          <double>0.001000000000000</double>
+          <double>0.010000000000000</double>
          </property>
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QDoubleSpinBox" name="learningRateBox">
+        <widget class="QDoubleSpinBox" name="learning_rate_box">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
@@ -175,7 +175,7 @@ p, li { white-space: pre-wrap; }
         </spacer>
        </item>
        <item row="0" column="0">
-        <widget class="QSpinBox" name="epochsBox">
+        <widget class="QSpinBox" name="epochs_box">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
@@ -199,7 +199,7 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QPushButton" name="clearGraphButton">
+        <widget class="QPushButton" name="clear_graph_button">
          <property name="font">
           <font>
            <pointsize>10</pointsize>
@@ -211,7 +211,7 @@ p, li { white-space: pre-wrap; }
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QPushButton" name="heatmapToggle">
+        <widget class="QPushButton" name="heatmap_toggle">
          <property name="font">
           <font>
            <pointsize>10</pointsize>

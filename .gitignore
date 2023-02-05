@@ -1,5 +1,5 @@
 data/
 __pycache__/
-venvNeuralNetwork/
+venv*/
 build/
 *.spec

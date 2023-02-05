@@ -25,7 +25,7 @@ class MplCanvas3dGraph(Canvas):
         Canvas.updateGeometry(self)
 
     def updateGraph(self, points):
-        #remove the old scatter plot if run twice
+        # Remove the old scatter plot if run twice
         if self.scatter:
             self.scatter.remove()
         self.scatter = self.ax.scatter(points[:, 0], points[:, 1], points[:, 2], c=points[:, 2], cmap=matplotlib.cm.get_cmap('seismic_r'))
@@ -36,7 +36,7 @@ class MplCanvas3dGraph(Canvas):
 class Widget3dGraph(QtWidgets.QWidget):
     def __init__(self, parent=None):
         QtWidgets.QWidget.__init__(self, parent)   # Inherit from QWidget
-        self.canvas = MplCanvas3dGraph()                 # Create canvas object
+        self.canvas = MplCanvas3dGraph()           # Create canvas object
         self.vbl = QtWidgets.QVBoxLayout()         # Set box for plotting
         self.vbl.addWidget(self.canvas)
         self.setLayout(self.vbl)
