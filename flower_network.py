@@ -1,14 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-
-from dense import Dense
-from activations import Sigmoid, Tanh, Relu, LeakyRelu
-from losses import mse, mse_prime
-from network import train, predict
-
-from widget_3dgraph import Widget3dGraph
-
+from nn import *
 import re
 
 class FlowerNetwork():
@@ -17,88 +8,93 @@ class FlowerNetwork():
         self.ui = ui
         self.points = np.array([])
     
-    def runNetwork(self, inputPoints, outputValues, epochs, learning_rate, errorStopThreshold):
-        #Don't run the network if there are no input points
-        if not inputPoints:
-            print("No input points")
+    def runNetwork(self, input_points, output_values, epochs, learning_rate, error_stop_threshold):
+        # Don't run the network if there are no input points
+        if not input_points:
+            print("No Input Points")
             return
 
-        #reset progress bar to zero before training
-        self.ui.progressBar.setValue(0)
+        # Reset progress bar to zero before training
+        self.ui.progress_bar.setValue(0)
 
-        X = np.reshape(inputPoints, (len(inputPoints), 2, 1))
-        Y = np.reshape(outputValues, (len(outputValues), 1, 1))
+        X = np.reshape(input_points, (len(input_points), 2, 1))
+        Y = np.reshape(output_values, (len(output_values), 1, 1))
 
         #unsafe alternative
         #network = eval(ui.textEdit.toPlainText())
-        network = self.parseInput(self.ui.textEdit.toPlainText())
-        # network = [
-        #     Dense(2, 3),
-        #     Tanh(),
-        #     Dense(3, 1),
-        #     Tanh()
+        network_layers = self.parseInput(self.ui.text_editor.toPlainText())
 
-        #    Dense(2, 10),
-        #    Tanh(),
-        #    Dense(10, 5),
-        #    Tanh(),
-        #    Dense(5, 1),
-        #    Tanh()
-        # ]
+        network = Network(
+            network_layers,
+            TrainingSet(X, Y, X, Y, np.rint),
+            loss=mean_squared_error,
+            loss_prime=mean_squared_error_prime,
+            epochs=1,
+            batch_size=1,
+            layer_properties=LayerProperties(learning_rate=learning_rate, optimizer=SGD()),
+            verbose=False
+        )
 
-        # train
-        errorPoints = train(self.ui, network, mse, mse_prime, X, Y, epochs, learning_rate, errorStopThreshold)
+        error_points = []
+        # Epoch loop. This would normally not be necessary.
+        # But I need epoch specific information for graphing purposes. Which aeronet does not currently support
+        for epoch in range(epochs):
+            network.train()
+            accuracy_train, _ = network.test()
+            # Percentage in decimal form. So 0.01 is 1%
+            error_percentage = (1-accuracy_train)
+            error_points.append([epoch, error_percentage])
 
-        # decision boundary plot
+            # Update the progress bar
+            self.ui.progress_bar.setValue(round(((epoch + 1) * 100) / epochs))
+
+            # Stop training if the error falls below the threshold
+            if error_percentage < error_stop_threshold:
+                break
+
+        error_points = np.array(error_points)
+
+        # Decision boundary plot
         points = []
         for x in np.linspace(0, 10, 20):
             for y in np.linspace(0, 10, 20):
-                z = predict(network, [[x], [y]])
+                z = network.predict([[x], [y]])
                 points.append([x, y, z[0,0]])
 
         self.points = np.array(points)
 
-        #ui._2dGraphTab.canvas.
+        # Update 3D output graph
         self.ui._3dOutputTab.canvas.updateGraph(self.points)
 
-        #update the heatmap if it is on
+        # Update the heatmap if it is toggled on
         self.ui._2dGraphTab.canvas.updateHeatMap(self.points)
 
-        #update the error graph after training finishes
-        self.ui.errorGraphTab.canvas.updateErrorGraph(errorPoints)
+        # Update the error graph after training finishes
+        self.ui.errorGraphTab.canvas.updateErrorGraph(error_points)
 
-        #set progress bar to max after training
-        self.ui.progressBar.setValue(100)
+        # Set progress bar to max after training
+        self.ui.progress_bar.setValue(100)
     
     def toggleHeatMap(self):
         if np.size(self.points):
             self.ui._2dGraphTab.canvas.toggleHeatMap(self.points)
 
-    #Parses the text editor architecture into actual Dense / Activation Layers
-    #Activation functions are imported by name
-    def parseInput(self, inputText):
-        network = []
-        lineNum = 0
-        for line in inputText.splitlines():
-            line.replace(" ", "")
-            parsedLine = re.split('\(|,|\)', line)
-            parsedKeyword = parsedLine[0].casefold()
-            if parsedKeyword == 'Dense'.casefold():
-                try:
-                    layerInputSize = int(parsedLine[1])
-                    layerOutputSize = int(parsedLine[2])
-                    network.append(Dense(layerInputSize, layerOutputSize))
-                except ValueError:
-                    print('Error Parsing Architecture at line ' + lineNum)
-            elif parsedKeyword == 'Tanh'.casefold():
-                network.append(Tanh())
-            elif parsedKeyword == 'Sigmoid'.casefold() or parsedKeyword == 'Sig'.casefold():
-                network.append(Sigmoid())
-            elif parsedKeyword == 'Relu'.casefold():
-                network.append(Relu())
-            elif parsedKeyword == 'LeakyRelu'.casefold():
-                network.append(LeakyRelu())
+    # Parses the text editor architecture into actual Network Layer Classes
+    # https://stackoverflow.com/questions/553784/can-you-use-a-string-to-instantiate-a-class
+    def parseInput(self, input_text):
+        network_layers = []
 
-            lineNum+=1
-            #print(parsedLine)
-        return network
+        for line in input_text.splitlines():
+            parsedLine = line.replace(" ", "")
+            parsedLine = re.split('\(|,|\)', parsedLine)[:-1]
+            parsedClassName = parsedLine[0]
+            parsedArgs = parsedLine[1:]
+
+            class_constructor = globals()[parsedClassName]
+            if parsedClassName == "Dense":
+                # input_shape, output_shape
+                network_layers.append(class_constructor(int(parsedArgs[0]), int(parsedArgs[1])))
+            elif parsedClassName in ["Tanh", "Sigmoid", "Relu", "LeakyRelu"]:
+                network_layers.append(class_constructor())
+            
+        return network_layers
